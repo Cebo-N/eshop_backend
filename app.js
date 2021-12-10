@@ -1,30 +1,23 @@
-import express from 'express';
-import dotenv from 'dotenv';
-import morgan from 'morgan';
-import mongoose from 'mongoose';
+const express = require('express');
+const dotenv = require('dotenv');
+const morgan = require('morgan');
+const mongoose = require('mongoose');
 
 dotenv.config();
 
 const app = express();
 
-app.use(express.json())
-app.use(morgan('tiny'))
+const api = process.env.API_URL;
 
-const api = process.env.API_URL
+const productsRouter = require('./routers/product')
 
-app.get(`${api}/products`,(req,res) =>{
-    const product = {
-        id:1,
-        name : 'Shampoo',
-        image : 'http://image.png'
-    }
-    res.send(product);
-})
-app.post(`${api}/products`,(req,res) =>{
-    const newProduct = req.body
-    console.log(newProduct)
-    res.send(newProduct);
-})
+//Middleware
+app.use(express.json());
+app.use(morgan('tiny'));
+
+//Routers
+app.use(`${api}/products`, productsRouter)
+
 
 mongoose
     .connect(process.env.CONNECTION_STRING)
