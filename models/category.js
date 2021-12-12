@@ -8,16 +8,10 @@ const categorySchema = mongoose.Schema(
         },
         color : {
             type : String,
-            require : true
         },
         icon : {
             type : String,
-            require : true
         },
-        image : {
-            type : String,
-            require : true
-        }
     },
     {
         timestamps : true

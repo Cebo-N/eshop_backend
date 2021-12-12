@@ -4,51 +4,59 @@ const productSchema = mongoose.Schema(
     {
         name : {
             type : String,
-            require : true,
+            required : true,
             trim : true,
         },
         description : {
             type : String,
-            require : true,
+            required : true,
             trim : true,
         },
         richDescription : {
             type : String,
-            require : true,
             trim : true,
+            default : ''
         },
         image : {
             type : String,
-            require : true,
+            required : true,
         },
-        images : {
-            type : Array,
-            require : false,
-        },
+        images : [{
+            type : String
+
+        }],
         brand : {
             type : String,
-            require : true,
+            default : '',
             trim : true,
         },
         price : {
             type : Number,
-            require : true,
+            required : true,
         },
         category : {
             type : mongoose.Schema.Types.ObjectId,
-            ref : 'Category'
+            ref : 'Category',
+            required : true
         },
         countInStock : {
             type : Number,
-            require : true
+            required : true,
+            min : 0,
+            max : 500
         },
         rating : {
             type : Number,
-            require : false
+            min : 1,
+            max : 5
+        },
+        numReviews : {
+            type : Number,
+            default : 0
         },
         isFeatured : {
             type : Boolean,
-            require : true
+            default : false
         }
     
     },
