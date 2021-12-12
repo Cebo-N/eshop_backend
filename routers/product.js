@@ -19,11 +19,18 @@ router.get('/',async (req,res) =>{
  router.post('/', async(req,res) =>{
      try { 
          const newProduct = Product({
-             name : req.body.name,
-             image : req.body.image,
-             quantity : req.body.quantity
+            name : req.body.name,
+            description : req.body.description,
+            richDescription : req.body.richDescription,
+            image: req.body.image,
+            images: req.body.images,
+            brand: req.body.brand,
+            price: req.body.price,
+            category : req.body.category,
+            countInStock: req.body.countInStock,
+            rating: req.body.rating,
+            isFeatured: req.body.isFeatured
          });
-         console.log(newProduct);
          const createdProduct = await newProduct.save();
          res.status(201).json(createdProduct);
      } catch (error) {

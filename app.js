@@ -9,7 +9,10 @@ const app = express();
 
 const api = process.env.API_URL;
 
-const productsRouter = require('./routers/product')
+const productsRouter = require('./routers/product');
+const ordersRouter = require('./routers/order');
+const usersRouter = require('./routers/user');
+const categoriesRouter = require('./routers/category')
 
 //Middleware
 app.use(express.json());
@@ -17,6 +20,10 @@ app.use(morgan('tiny'));
 
 //Routers
 app.use(`${api}/products`, productsRouter)
+app.use(`${api}/orders`,ordersRouter)
+app.use(`${api}/categories`,categoriesRouter)
+app.use(`${api}/users`,usersRouter)
+
 
 
 mongoose
