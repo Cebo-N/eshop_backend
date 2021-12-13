@@ -17,13 +17,10 @@ const categorySchema = mongoose.Schema(
         timestamps : true
     }
 );
-// categorySchema.virtual('id').get(()=>{
-//     return this._id.toHexString();
-// })
-
-// categorySchema.set('toJSON',{
-//     virtuals : true
-// });
-
+categorySchema.set('toJSON', {
+    virtuals: true,
+    versionKey:false,
+    transform: function (doc, ret) {   delete ret._id  }
+});
 const Category = mongoose.model('Category',categorySchema);
 module.exports = Category;
