@@ -44,6 +44,33 @@ router.post('/', async (req, res) =>{
     }
 });
 
+router.post('/register', async (req, res) =>{
+    try {
+        const newUser = User({
+            name : req.body.name,
+            email : req.body.email,
+            passwordHash :bcrypt.hashSync(req.body.password, 10),
+            street : req.body.street,
+            apartment : req.body.apartment,
+            city : req.body.city,
+            postalCode : req.body.postalCode,
+            country : req.body.country,
+            phone: req.body.phone,
+            isAdmin : req.body.isAdmin
+        });
+
+        const user = await newUser.save();
+        res.status(200).json(user);
+        
+    } catch (error) {
+        console.log(error)
+        res.status(400).json({
+            mesage : 'Error occured while trying to register a user',
+            success : error
+        })
+    }
+});
+
 router.get('/:id', async (req,res) =>{
     try {
         if(!mongoose.isValidObjectId(req.params.id)){
@@ -103,6 +130,41 @@ router.post('/login', async (req, res) =>{
             success : false
         })
     }
-})
+});
+
+router.get('/get/count', async (req,res) =>{
+    try {
+        const userCount = await User.countDocuments()
+        res.send({
+            userCount : userCount
+        })
+    } catch (error) {
+        res.status(400).json({
+            message : 'Error occured while getting the number of products',
+           sucesss : false
+        })
+    }
+});
+
+router.delete('/:id', async (req,res) =>{
+    try {
+         if(!mongoose.isValidObjectId(req.params.id)){
+             return res.status(400).json({
+                 message : 'Invalid user id',
+                 sucesss : false
+             })
+         }
+         await User.findByIdAndDelete(req.params.id)
+         res.status(200).json({
+             message : 'Product user',
+             sucesss : true
+         })
+    } catch (error) {
+        res.status(500).json({
+            message : 'Failed to delete the User',
+            sucesss : false
+        })
+    }
+  });
 
 module.exports = router
