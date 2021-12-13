@@ -3,7 +3,8 @@ const dotenv = require('dotenv');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const authentication = require('./middlewares/jwt')
+const authentication = require('./middlewares/jwt');
+const handleError = require('./middlewares/error_handler');
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ const categoriesRouter = require('./routers/category')
 app.use(express.json());
 app.use(morgan('tiny'));
 app.use(authentication())
+app.use(handleError)
 
 //Routers
 app.use(`${api}/products`, productsRouter)
