@@ -4,35 +4,35 @@ const userSchema = mongoose.Schema(
     {
         name : {
             type : String,
-            require : true
+            required : true
         },
         email : {
             type : String,
-            require : true
+            required : true
         },
         passwordHash : {
             type : String,
-            require : true
+            required : true
         },
         street : {
             type : String,
-            require : true
+            default : ''
         },
         apartment : {
             type : String,
-            require : true
+            default : ''
         },
         city : {
             type : String,
-            require : true
+            default : ''
         },
         postalCode :{
             type : String,
-            require : true
+           default : ''
         },
         country : {
             type : String,
-            require : true
+            default : ''
         },
         phone:{
             type : String,
@@ -40,7 +40,7 @@ const userSchema = mongoose.Schema(
         },
         isAdmin : {
             type : Boolean,
-            require : true
+            default : false
         }
     },
     {
